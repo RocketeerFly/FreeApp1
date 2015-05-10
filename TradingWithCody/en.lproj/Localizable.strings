@@ -1,0 +1,15 @@
+/* 
+  Localizable.strings
+  RocketeerApp1
+
+  Created by Rocketeer on 5/1/15.
+  Copyright (c) 2015 Rocketeer. All rights reserved.
+*/
+"MSG_LOGIN_CANT" = "Can't login. Please try again";
+"MSG_LOGIN_FAIL" = "The email/password you have entered could not be found";
+"URL_REGISTER" = "https://www.scutify.com/premiumplans/codywillard.html";
+"URL_FORGOT_PASS" = "https://www.scutify.com/verify-email.html";
+"URL_APP_SCUTIFY"="https://itunes.apple.com/us/app/scutify-most-innovative-social/id673974489?mt=8";
+"CONTACT_MAIL" = "mailto:support@tradingwithcody.com";
+"MSG_PLACEHOLDER_CHAT" = "Post a chat comment";
+"URL_SCUTIFY_APP"="iOSDevTips://com.iosDeveloperTips.TestApp/";
