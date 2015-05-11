@@ -314,22 +314,13 @@
 		8B36736A1AFFC0B900CCC6C3 /* TradingWithCody */ = {
 			isa = PBXGroup;
 			children = (
+				8B36737B1AFFC0B900CCC6C3 /* ChatRoomView.h */,
+				8B36737C1AFFC0B900CCC6C3 /* ChatRoomView.m */,
+				8BF59FB61B0029A20044199A /* Object */,
 				8B36736B1AFFC0B900CCC6C3 /* AppDelegate.h */,
 				8B36736C1AFFC0B900CCC6C3 /* AppDelegate.m */,
 				8B36736D1AFFC0B900CCC6C3 /* LaunchScreen.xib */,
 				8B36736F1AFFC0B900CCC6C3 /* Main.storyboard */,
-				8B3673711AFFC0B900CCC6C3 /* BubbleMessage.h */,
-				8B3673721AFFC0B900CCC6C3 /* BubbleMessage.m */,
-				8B3673731AFFC0B900CCC6C3 /* BubbleMessageCell.h */,
-				8B3673741AFFC0B900CCC6C3 /* BubbleMessageCell.m */,
-				8B3673751AFFC0B900CCC6C3 /* BubbleMessageMine.h */,
-				8B3673761AFFC0B900CCC6C3 /* BubbleMessageMine.m */,
-				8B3673771AFFC0B900CCC6C3 /* BubbleMessageSomeone.h */,
-				8B3673781AFFC0B900CCC6C3 /* BubbleMessageSomeone.m */,
-				8B3673791AFFC0B900CCC6C3 /* ChatItemData.h */,
-				8B36737A1AFFC0B900CCC6C3 /* ChatItemData.m */,
-				8B36737B1AFFC0B900CCC6C3 /* ChatRoomView.h */,
-				8B36737C1AFFC0B900CCC6C3 /* ChatRoomView.m */,
 				8B36737D1AFFC0B900CCC6C3 /* Contants.h */,
 				8B36737E1AFFC0B900CCC6C3 /* CustomUITabBarController.h */,
 				8B36737F1AFFC0B900CCC6C3 /* CustomUITabBarController.m */,
@@ -346,10 +337,6 @@
 				8B3673981AFFC0B900CCC6C3 /* main.m */,
 				8B3673991AFFC0B900CCC6C3 /* MoreView.h */,
 				8B36739A1AFFC0B900CCC6C3 /* MoreView.m */,
-				8B36739B1AFFC0B900CCC6C3 /* PositionCell.h */,
-				8B36739C1AFFC0B900CCC6C3 /* PositionCell.m */,
-				8B36739D1AFFC0B900CCC6C3 /* PositionCellData.h */,
-				8B36739E1AFFC0B900CCC6C3 /* PositionCellData.m */,
 				8B36739F1AFFC0B900CCC6C3 /* PositionsView.h */,
 				8B3673A01AFFC0B900CCC6C3 /* PositionsView.m */,
 				8B3673A11AFFC0B900CCC6C3 /* ProgessView.h */,
@@ -358,8 +345,6 @@
 				8B3673A41AFFC0B900CCC6C3 /* SDWebImage */,
 				8B3673C61AFFC0BA00CCC6C3 /* TradeAlertsView.h */,
 				8B3673C71AFFC0BA00CCC6C3 /* TradeAlertsView.m */,
-				8B3673C81AFFC0BA00CCC6C3 /* UserAccount.h */,
-				8B3673C91AFFC0BA00CCC6C3 /* UserAccount.m */,
 				8B3673CA1AFFC0BA00CCC6C3 /* Utils.h */,
 				8B3673CB1AFFC0BA00CCC6C3 /* Utils.m */,
 			);
@@ -483,6 +468,29 @@
 				8B36740F1AFFC12100CCC6C3 /* typingSomeone@2x.png */,
 			);
 			path = chat;
+			sourceTree = "<group>";
+		};
+		8BF59FB61B0029A20044199A /* Object */ = {
+			isa = PBXGroup;
+			children = (
+				8B3673C81AFFC0BA00CCC6C3 /* UserAccount.h */,
+				8B3673C91AFFC0BA00CCC6C3 /* UserAccount.m */,
+				8B36739B1AFFC0B900CCC6C3 /* PositionCell.h */,
+				8B36739C1AFFC0B900CCC6C3 /* PositionCell.m */,
+				8B36739D1AFFC0B900CCC6C3 /* PositionCellData.h */,
+				8B36739E1AFFC0B900CCC6C3 /* PositionCellData.m */,
+				8B3673711AFFC0B900CCC6C3 /* BubbleMessage.h */,
+				8B3673721AFFC0B900CCC6C3 /* BubbleMessage.m */,
+				8B3673731AFFC0B900CCC6C3 /* BubbleMessageCell.h */,
+				8B3673741AFFC0B900CCC6C3 /* BubbleMessageCell.m */,
+				8B3673751AFFC0B900CCC6C3 /* BubbleMessageMine.h */,
+				8B3673761AFFC0B900CCC6C3 /* BubbleMessageMine.m */,
+				8B3673771AFFC0B900CCC6C3 /* BubbleMessageSomeone.h */,
+				8B3673781AFFC0B900CCC6C3 /* BubbleMessageSomeone.m */,
+				8B3673791AFFC0B900CCC6C3 /* ChatItemData.h */,
+				8B36737A1AFFC0B900CCC6C3 /* ChatItemData.m */,
+			);
+			name = Object;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

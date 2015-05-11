@@ -97,6 +97,7 @@ static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
 //         twChat.contentInset = contentInset;
 //        [twChat setNeedsDisplay];
         //[twChat reloadData];
+        NSLog(@"Do nothing");
     }
     
     firstLoad = NO;
@@ -126,7 +127,6 @@ static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
 //    return newCell;
 //    
     if(messageData.type==BubbleMessageTypeMine){
-        NSLog(@"Cell mine");
         UITableViewCell* cellCustom = [twChat dequeueReusableCellWithIdentifier:idCellMineReuse];
         if(!cellCustom || messageData.size.height==0){
             //text message
@@ -339,9 +339,9 @@ static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
                 
             }
         }
+        [cellCustom layoutSubviews];
         return cellCustom;
     }else{
-        NSLog(@"Cell someone");
         UITableViewCell* cellCustom = [twChat dequeueReusableCellWithIdentifier:idCellSomeoneReuse];
         if(!cellCustom || messageData.size.height==0){
             if(!cellCustom){
@@ -600,6 +600,7 @@ static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
             }
         }
         //[cellCustom setNeedsDisplay];
+        [cellCustom layoutSubviews];
         return cellCustom;
     }
 }
@@ -752,8 +753,9 @@ static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
             }
             [twChat insertRowsAtIndexPaths:arrayOfIndexPath withRowAnimation:UITableViewRowAnimationNone];
             [twChat endUpdates];
-            
-            if(isFirstRequest || isAfterRefresh){
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [twChat reloadData];
+            });            if(isFirstRequest || isAfterRefresh){
                 NSLog(@"First Request or refresh");
                 [twChat scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:bubbleData.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
                 [self performSelector:@selector(scrollToBottom) withObject:nil afterDelay:0.01];
