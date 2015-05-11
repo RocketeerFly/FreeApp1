@@ -72,7 +72,9 @@
         default:
             break;
     }
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
 -(void)viewWillDisappear:(BOOL)animated{
     arrItems = nil;
 }

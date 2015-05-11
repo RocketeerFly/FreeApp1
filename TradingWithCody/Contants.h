@@ -9,7 +9,7 @@
 #ifndef RocketeerApp1_Contants_h
 #define RocketeerApp1_Contants_h
 
-#define baseURL @"http://twcservice.scutify.com/Service.svc"
+#define baseURL @"https://twcservice.scutify.com/Service.svc"
 #define pathLogin @"/users/login"  //{"user"{"Email":"thitruongvo@gmail.com","Password":"1791989vtT1"}}
 #define loginParams @"{"user":{"Email":"%@","Password":"%@"}}"
 #define pathTradeAlert @"/content/tradealerts/"            //uid,tkn
