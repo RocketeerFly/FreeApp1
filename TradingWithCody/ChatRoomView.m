@@ -966,27 +966,27 @@ static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
         
         //show spinner
         [self showSpinner];
-        //test
-        if(!imgAttach){
-            [self performSelector:@selector(refreshList) withObject:nil afterDelay:2];
-        }else{
-            [self postImageV2:nil forCmtId:nil];
-        }
+//        //test
+//        if(!imgAttach){
+//            [self performSelector:@selector(refreshList) withObject:nil afterDelay:2];
+//        }else{
+//            [self postImageV2:nil forCmtId:nil];
+//        }
         
-//       [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue currentQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-//           
-//           NSDictionary* dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-//           NSString* commentId = [dict valueForKey:@"result"];
-//           NSLog(@"Finish postComment id: %@",commentId);
-//           //PostImage
-//           if(imgAttach && commentId && commentId.length>0){
-//               [self postImageV2:imgAttach forCmtId:commentId];
-//           }else{
-//               //reload chat view
-//               NSLog(@"Reload...");
-//               [self refreshList];
-//           }
-//       }];
+       [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue currentQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+           
+           NSDictionary* dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+           NSString* commentId = [dict valueForKey:@"result"];
+           NSLog(@"Finish postComment id: %@",commentId);
+           //PostImage
+           if(imgAttach && commentId && commentId.length>0){
+               [self postImageV2:imgAttach forCmtId:commentId];
+           }else{
+               //reload chat view
+               NSLog(@"Reload...");
+               [self refreshList];
+           }
+       }];
     }
 }
 
@@ -999,12 +999,12 @@ static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
     [request setHTTPBodyStream:inputStream];
     
     [self performSelector:@selector(deleteAttachImageAndRefresh) withObject:nil afterDelay:3];
-//    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-//        NSString *retString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-//        NSLog(@"%@", retString);
-//        imgAttach = nil;
-//        [self refreshList];
-//    }];
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        NSString *retString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSLog(@"%@", retString);
+        imgAttach = nil;
+        [self refreshList];
+    }];
 }
 -(void)deleteAttachImageAndRefresh{
     imgAttach = nil;
