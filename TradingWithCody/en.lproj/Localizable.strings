@@ -12,4 +12,4 @@
 "URL_APP_SCUTIFY"="https://itunes.apple.com/us/app/scutify-most-innovative-social/id673974489?mt=8";
 "CONTACT_MAIL" = "mailto:support@tradingwithcody.com";
 "MSG_PLACEHOLDER_CHAT" = "Post a chat comment";
-"URL_SCUTIFY_APP"="iOSDevTips://com.iosDeveloperTips.TestApp/";
+"URL_SCUTIFY_APP"="scutify://";

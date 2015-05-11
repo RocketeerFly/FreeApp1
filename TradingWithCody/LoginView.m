@@ -199,6 +199,9 @@
     [spinner removeFromParentViewController];
     [spinner.view removeFromSuperview];
 }
+-(void)textFieldDidBeginEditing:(UITextField *)textField{
+    ;
+}
 /*
 #pragma mark - Navigation
 

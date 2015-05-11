@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		8B3673611AFFBF8600CCC6C3 /* TradingWithCodyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B3673601AFFBF8600CCC6C3 /* TradingWithCodyTests.m */; };
 		8B3673CC1AFFC0BA00CCC6C3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B36736C1AFFC0B900CCC6C3 /* AppDelegate.m */; };
-		8B3673CD1AFFC0BA00CCC6C3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8B36736D1AFFC0B900CCC6C3 /* LaunchScreen.xib */; };
 		8B3673CE1AFFC0BA00CCC6C3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8B36736F1AFFC0B900CCC6C3 /* Main.storyboard */; };
 		8B3673CF1AFFC0BA00CCC6C3 /* BubbleMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B3673721AFFC0B900CCC6C3 /* BubbleMessage.m */; };
 		8B3673D01AFFC0BA00CCC6C3 /* BubbleMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8B3673741AFFC0B900CCC6C3 /* BubbleMessageCell.m */; };
@@ -120,7 +119,6 @@
 		8B3673601AFFBF8600CCC6C3 /* TradingWithCodyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TradingWithCodyTests.m; sourceTree = "<group>"; };
 		8B36736B1AFFC0B900CCC6C3 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8B36736C1AFFC0B900CCC6C3 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		8B36736E1AFFC0B900CCC6C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		8B3673701AFFC0B900CCC6C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8B3673711AFFC0B900CCC6C3 /* BubbleMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BubbleMessage.h; sourceTree = "<group>"; };
 		8B3673721AFFC0B900CCC6C3 /* BubbleMessage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BubbleMessage.m; sourceTree = "<group>"; };
@@ -319,7 +317,6 @@
 				8BF59FB61B0029A20044199A /* Object */,
 				8B36736B1AFFC0B900CCC6C3 /* AppDelegate.h */,
 				8B36736C1AFFC0B900CCC6C3 /* AppDelegate.m */,
-				8B36736D1AFFC0B900CCC6C3 /* LaunchScreen.xib */,
 				8B36736F1AFFC0B900CCC6C3 /* Main.storyboard */,
 				8B36737D1AFFC0B900CCC6C3 /* Contants.h */,
 				8B36737E1AFFC0B900CCC6C3 /* CustomUITabBarController.h */,
@@ -579,7 +576,6 @@
 				8B3674551AFFC12100CCC6C3 /* img_login_bg.9.png in Resources */,
 				8B3674351AFFC12100CCC6C3 /* bubbleSomeone.png in Resources */,
 				8B36743E1AFFC12100CCC6C3 /* ic_action_alert.png in Resources */,
-				8B3673CD1AFFC0BA00CCC6C3 /* LaunchScreen.xib in Resources */,
 				8B36742F1AFFC12100CCC6C3 /* bubble_mine.png in Resources */,
 				8B3674521AFFC12100CCC6C3 /* ic_circle_img_bg.png in Resources */,
 				8B3674471AFFC12100CCC6C3 /* ic_action_more@2x.png in Resources */,
@@ -706,14 +702,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		8B36736D1AFFC0B900CCC6C3 /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8B36736E1AFFC0B900CCC6C3 /* Base */,
-			);
-			name = LaunchScreen.xib;
-			sourceTree = "<group>";
-		};
 		8B36736F1AFFC0B900CCC6C3 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -814,6 +802,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
 				INFOPLIST_FILE = TradingWithCody/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -824,6 +813,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "LaunchImage-2";
 				INFOPLIST_FILE = TradingWithCody/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -36,8 +36,7 @@
                 }
                 
                 NSMutableAttributedString * strAtt = [[NSMutableAttributedString alloc] initWithString:linkDetected];
-                NSString* hyperLink = [NSString stringWithFormat:NSLocalizedString(@"URL_SCUTIFY_APP", nil)];
-                [hyperLink stringByAppendingString:[linkDetected substringFromIndex:1]];
+                NSString* hyperLink = [NSString stringWithFormat:@"%@stock/%@",NSLocalizedString(@"URL_SCUTIFY_APP", nil),[linkDetected substringFromIndex:1]];
                 bool isInstalled = [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:hyperLink]];
                 if(isInstalled){
                     [strAtt addAttribute: NSLinkAttributeName value: hyperLink range: NSMakeRange(0, linkDetected.length)];
