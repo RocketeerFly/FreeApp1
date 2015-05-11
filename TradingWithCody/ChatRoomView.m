@@ -696,9 +696,9 @@ static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
 //                if(i==7){
 //                    [messageData setMessage:@"Chek my video https://www.youtube.com/watch?v=4NW9-yQcb70 hope u like it :D"];
 //                }
-                if (messageData.type == BubbleMessageTypeMine) {
-                    messageData.message = [NSString stringWithFormat:@"%@ sdfasdfsdf $sdfasd sdaf sdaf asdfds sadf asdf asdf as https://www.youtube.com/watch?v=4NW9-yQcb70 sdf $safsd fsadf sdf sdf $sdf",messageData.message];
-                }
+//                if (messageData.type == BubbleMessageTypeMine) {
+//                    messageData.message = [NSString stringWithFormat:@"%@ sdfasdfsdf $sdfasd sdaf sdaf asdfds sadf asdf asdf as https://www.youtube.com/watch?v=4NW9-yQcb70 sdf $safsd fsadf sdf sdf $sdf",messageData.message];
+//                }
                 long timeStamp = [[[dict valueForKey:@"Submitted"] valueForKey:@"$date"] longLongValue];
                 timeStamp=timeStamp/1000;
                 NSDate* time = [NSDate dateWithTimeIntervalSince1970:timeStamp];
