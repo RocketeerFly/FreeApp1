@@ -30,7 +30,7 @@ static int text_size = 18;
 static int pageSize = 30;
 static int chatbox_height = 40;
 static int refresh_interval = 60;
-static int tv_chat_height = 27;
+static int tv_chat_height = 30;
 static NSString* idCellMineReuse = @"bubbleMessageCellMine";
 static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
 @implementation ChatRoomView
@@ -91,8 +91,8 @@ static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
         if (currentHeightTextBox==0) {
             twChatBox.frame = CGRectMake(left  , 5, right-left, tv_chat_height);
         }
-//        twChatBox.layer.borderWidth = 1;
-//        twChatBox.layer.borderColor = [UIColor redColor].CGColor;
+        //twChatBox.layer.borderWidth = 1;
+        //twChatBox.layer.borderColor = [UIColor redColor].CGColor;
         twChatBox.contentSize = twChatBox.frame.size;
         
 //        chatView.layer.borderColor = [UIColor yellowColor].CGColor;
@@ -198,7 +198,7 @@ static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
             lbMessage.tag = 1;
             lbMessage.editable = YES;
             lbMessage.editable = NO;
-            lbMessage.linkTextAttributes = @{NSForegroundColorAttributeName:[UIColor purpleColor]};
+            lbMessage.linkTextAttributes = @{NSForegroundColorAttributeName:[UIColor colorWithRed:42/256 green:102/256 blue:153/256 alpha:1.0f]};
             messageData.rectMessage = lbMessage.frame;
             
             //picture
@@ -407,7 +407,7 @@ static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
             lbMessage.tag = 4;
             lbMessage.editable = YES;
             lbMessage.editable = NO;
-            lbMessage.linkTextAttributes = @{NSForegroundColorAttributeName:[UIColor purpleColor]};
+            lbMessage.linkTextAttributes = @{NSForegroundColorAttributeName:[UIColor colorWithRed:42/256.0f green:102/256.0f blue:153/256.0f alpha:1.0f]};
             messageData.rectMessage = lbMessage.frame;
             
             
@@ -866,7 +866,6 @@ static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
     [twChatBox resignFirstResponder];
     if (isAfterPostComment) {
         twChatBox.text = NSLocalizedString(@"MSG_PLACEHOLDER_CHAT", nil);
-        twChatBox.textColor = [UIColor lightGrayColor];
         oldHeightTextBox = chatbox_height;
         currentHeightTextBox = oldHeightTextBox;
     }
@@ -905,7 +904,6 @@ static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
 
 -(BOOL)textViewShouldEndEditing:(UITextView *)textView{
     if(textView.text.length==0){
-        textView.textColor = [UIColor darkGrayColor];
         textView.text = NSLocalizedString(@"MSG_PLACEHOLDER_CHAT", nil);
     }
     return YES;
@@ -919,7 +917,9 @@ static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
             NSLog(@"Change height UP !!!");
             
             [UIView beginAnimations:nil context:nil];
-            [UIView setAnimationDuration:0.3];
+            [UIView setAnimationDuration:0];
+            [UIView setAnimationDelegate:self];
+            [UIView setAnimationDidStopSelector:@selector(adjustContentSize)];
             
             CGRect frame = chatView.frame;
             frame.size.height += textView.font.leading;
@@ -930,14 +930,17 @@ static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
             rectChatBox.size.height +=textView.font.leading;
             twChatBox.frame = rectChatBox;
             [UIView commitAnimations];
-    }
+        }else{
+            [self adjustContentSize];
+        }
     }else{
         if(numLineTextChatOld>numLines){
             if (numLines<3 & numLines>0) {
                 NSLog(@"Change height DOWN !!!");
                 
                 [UIView beginAnimations:nil context:nil];
-                [UIView setAnimationDuration:0.3];
+                [UIView setAnimationDuration:0];
+                [UIView setAnimationDelegate:self];
                 
                 CGRect frame = chatView.frame;
                 frame.size.height -= textView.font.leading;
@@ -954,6 +957,9 @@ static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
     NSLog(@"numLines: %d",numLines);
     numLineTextChatOld = numLines;
     currentHeightTextBox = chatView.frame.size.height;
+}
+-(void)adjustTextView{
+    
 }
 -(IBAction)stopLoadMore:(id)sender{
     [refreshControl endRefreshing];
@@ -1235,6 +1241,15 @@ static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
 }
 -(void)textViewDidChangeSelection:(UITextView *)textView{
     currentSelectedText = textView;
+}
+-(void)adjustContentSize{
+    NSLog(@"scroll to bottom, content size: %f",twChatBox.contentSize.height);
+    //[twChatBox layoutIfNeeded];
+//    NSRange range = NSMakeRange(twChatBox.text.length, 1); //I ignore the final carriage return, to avoid a blank line at the bottom
+//
+//    [twChatBox scrollRangeToVisible:range];
+    //[twChatBox setContentOffset:CGPointMake(0, twChatBox.contentSize.height)];
+    [twChatBox scrollRectToVisible:CGRectMake(0, 0, twChatBox.frame.size.width, twChatBox.contentSize.height) animated:NO];
 }
 @end
 

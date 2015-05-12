@@ -803,7 +803,7 @@
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="27" id="F9U-ew-Uaj"/>
                                             <constraint firstAttribute="width" constant="276" id="h6i-Vl-VDo"/>
                                         </constraints>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         <variation key="default">
