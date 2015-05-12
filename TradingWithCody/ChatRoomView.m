@@ -991,26 +991,26 @@ static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
         //show spinner
         [self showSpinner];
         //test
-        if(!imgAttach){
-            [self performSelector:@selector(refreshList) withObject:nil afterDelay:2];
-        }else{
-            [self postImageV2:nil forCmtId:nil];
-        }
+//        if(!imgAttach){
+//            [self performSelector:@selector(refreshList) withObject:nil afterDelay:2];
+//        }else{
+//            [self postImageV2:nil forCmtId:nil];
+//        }
         
-//       [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue currentQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-//           
-//           NSDictionary* dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-//           NSString* commentId = [dict valueForKey:@"result"];
-//           NSLog(@"Finish postComment id: %@",commentId);
-//           //PostImage
-//           if(imgAttach && commentId && commentId.length>0){
-//               [self postImageV2:imgAttach forCmtId:commentId];
-//           }else{
-//               //reload chat view
-//               NSLog(@"Reload...");
-//               [self refreshList];
-//           }
-//       }];
+       [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue currentQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+           
+           NSDictionary* dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+           NSString* commentId = [dict valueForKey:@"result"];
+           NSLog(@"Finish postComment id: %@",commentId);
+           //PostImage
+           if(imgAttach && commentId && commentId.length>0){
+               [self postImageV2:imgAttach forCmtId:commentId];
+           }else{
+               //reload chat view
+               NSLog(@"Reload...");
+               [self refreshList];
+           }
+       }];
     }
 }
 
