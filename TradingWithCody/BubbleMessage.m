@@ -9,5 +9,5 @@
 #import "BubbleMessage.h"
 
 @implementation BubbleMessage
-@synthesize avatar,imgBubble,imgPost,initialed,isShowImage,message,name,rectAvatar,rectBubble,rectMessage,rectImage,rectName,rectTime,time,type,urlImgAvatar,urlImgPost,youtubeVideoId,size;
+@synthesize avatar,imgBubble,imgPost,initialed,isShowImage,message,name,rectAvatar,rectBubble,rectMessage,rectImage,rectName,rectTime,time,type,urlImgAvatar,urlImgPost,youtubeVideoId,size, timeStamp;
 @end

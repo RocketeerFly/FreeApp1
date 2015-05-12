@@ -27,6 +27,7 @@ typedef enum {
     bool isShowImage;//show image or youtube
     NSString* youtubeVideoId;
     bool initialed;
+    long timeStamp;
     
     //Rect
     CGRect rectAvatar;
@@ -55,4 +56,5 @@ typedef enum {
 @property (nonatomic, assign) bool isShowImage;
 @property (nonatomic, retain) NSString* youtubeVideoId;
 @property (nonatomic, assign) bool initialed;
+@property (nonatomic, assign) long timeStamp;
 @end

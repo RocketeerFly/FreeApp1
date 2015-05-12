@@ -94,6 +94,10 @@ static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
 //        twChatBox.layer.borderWidth = 1;
 //        twChatBox.layer.borderColor = [UIColor redColor].CGColor;
         twChatBox.contentSize = twChatBox.frame.size;
+        
+//        chatView.layer.borderColor = [UIColor yellowColor].CGColor;
+//        chatView.layer.borderWidth = 1;
+        
         oldHeightTextBox = chatView.frame.size.height;
         currentHeightTextBox = oldHeightTextBox;
     }else{
@@ -639,6 +643,9 @@ static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
     request.HTTPMethod=@"GET";
     NSLog(@"%@",url);
     cnnGetListChat = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    
+    BubbleMessage* msg = [bubbleData lastObject];
+    timeLastComment = msg.timeStamp;
 }
 -(NSURLRequest*)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)response{
     if([connection isEqual:cnnGetListChat]){
@@ -697,6 +704,7 @@ static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
 //                    messageData.message = [NSString stringWithFormat:@"%@ sdfasdfsdf $sdfasd sdaf sdaf asdfds sadf asdf asdf as https://www.youtube.com/watch?v=4NW9-yQcb70 sdf $safsd fsadf sdf sdf $sdf",messageData.message];
 //                }
                 long timeStamp = [[[dict valueForKey:@"Submitted"] valueForKey:@"$date"] longLongValue];
+                [messageData setTimeStamp:timeStamp];
                 timeStamp=timeStamp/1000;
                 NSDate* time = [NSDate dateWithTimeIntervalSince1970:timeStamp];
                 NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
@@ -744,7 +752,14 @@ static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
                 }
             }
             //insert
-            [twChat reloadData];
+            if (isAfterRefresh) {
+                BubbleMessage* msg =[bubbleData lastObject];
+                if (timeLastComment != msg.timeStamp) {
+                    [twChat reloadData];
+                }
+            }else{
+                    [twChat reloadData];
+            }
 //            [twChat beginUpdates];
 //            if (oldSizeArr>0 && isAfterRefresh) {
 //                [twChat deleteRowsAtIndexPaths:arrIndexDel withRowAnimation:UITableViewRowAnimationNone];
@@ -827,7 +842,7 @@ static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
     //listView
     CGRect newFrame = twChat.frame;
     newFrame.size.height = newFrame.size.height-distance-(currentHeightTextBox-oldHeightTextBox);
-    
+
     //chat box
     CGRect rectChatBox = chatView.frame;
     rectChatBox.size.height = currentHeightTextBox;
@@ -852,6 +867,7 @@ static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
     if (isAfterPostComment) {
         twChatBox.text = NSLocalizedString(@"MSG_PLACEHOLDER_CHAT", nil);
         twChatBox.textColor = [UIColor lightGrayColor];
+        oldHeightTextBox = chatbox_height;
         currentHeightTextBox = oldHeightTextBox;
     }
     CGRect newFrame = twChat.frame;
@@ -860,13 +876,22 @@ static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
     CGRect rectChatView = chatView.frame;
     rectChatView.origin.y = oldYTextBox - (currentHeightTextBox - oldHeightTextBox);
     
+    if (isAfterPostComment) {
+        CGRect rectTextBox = twChatBox.frame;
+        rectTextBox.size.height = tv_chat_height;
+        twChatBox.frame = rectTextBox;
+    }
+    
+    NSLog(@"chatview height: %f",rectChatView.size.height);
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.1f];
     twChat.frame = newFrame;
     chatView.frame = rectChatView;
     //self.view.frame = CGRectMake(self.view.frame.origin.x, 0, self.view.frame.size.width, self.view.frame.size.height);
-    currentHeightTextBox = chatbox_height;
-    oldHeightTextBox = chatbox_height;
+//    currentHeightTextBox = chatbox_height;
+//    oldHeightTextBox = chatbox_height;
+    //oldHeightTextBox = currentHeightTextBox;
+
     [UIView commitAnimations];
 }
 -(BOOL)textViewShouldBeginEditing:(UITextView *)textView{
@@ -908,7 +933,7 @@ static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
     }
     }else{
         if(numLineTextChatOld>numLines){
-            if (numLines<4 & numLines>1) {
+            if (numLines<3 & numLines>0) {
                 NSLog(@"Change height DOWN !!!");
                 
                 [UIView beginAnimations:nil context:nil];
@@ -965,27 +990,27 @@ static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
         
         //show spinner
         [self showSpinner];
-//        //test
-//        if(!imgAttach){
-//            [self performSelector:@selector(refreshList) withObject:nil afterDelay:2];
-//        }else{
-//            [self postImageV2:nil forCmtId:nil];
-//        }
+        //test
+        if(!imgAttach){
+            [self performSelector:@selector(refreshList) withObject:nil afterDelay:2];
+        }else{
+            [self postImageV2:nil forCmtId:nil];
+        }
         
-       [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue currentQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-           
-           NSDictionary* dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-           NSString* commentId = [dict valueForKey:@"result"];
-           NSLog(@"Finish postComment id: %@",commentId);
-           //PostImage
-           if(imgAttach && commentId && commentId.length>0){
-               [self postImageV2:imgAttach forCmtId:commentId];
-           }else{
-               //reload chat view
-               NSLog(@"Reload...");
-               [self refreshList];
-           }
-       }];
+//       [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue currentQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+//           
+//           NSDictionary* dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+//           NSString* commentId = [dict valueForKey:@"result"];
+//           NSLog(@"Finish postComment id: %@",commentId);
+//           //PostImage
+//           if(imgAttach && commentId && commentId.length>0){
+//               [self postImageV2:imgAttach forCmtId:commentId];
+//           }else{
+//               //reload chat view
+//               NSLog(@"Reload...");
+//               [self refreshList];
+//           }
+//       }];
     }
 }
 

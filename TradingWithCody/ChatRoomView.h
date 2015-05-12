@@ -49,6 +49,8 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDele
     bool firstLoad;
     bool isAfterRefresh;
     bool isAfterPostComment;
+    
+    long timeLastComment;
 }
 
 @end
