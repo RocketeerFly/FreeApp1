@@ -30,6 +30,7 @@ static int text_size = 18;
 static int pageSize = 30;
 static int chatbox_height = 40;
 static int refresh_interval = 60;
+static int tv_chat_height = 27;
 static NSString* idCellMineReuse = @"bubbleMessageCellMine";
 static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
 @implementation ChatRoomView
@@ -46,6 +47,7 @@ static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
     refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self action:@selector(loadMore:) forControlEvents:UIControlEventValueChanged];
     [twChat addSubview:refreshControl];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
     currentSize = 0;
     numLineTextChatOld = 1;
@@ -87,17 +89,14 @@ static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
         int left = btnAttach.frame.origin.x+btnAttach.frame.size.width+10;
         int right = btnSend.frame.origin.x-10;
         if (currentHeightTextBox==0) {
-            twChatBox.frame = CGRectMake(left  , 5, right-left, 30);
+            twChatBox.frame = CGRectMake(left  , 5, right-left, tv_chat_height);
         }
-        
+        twChatBox.layer.borderWidth = 1;
+        twChatBox.layer.borderColor = [UIColor redColor].CGColor;
+        twChatBox.contentSize = twChatBox.frame.size;
         oldHeightTextBox = chatView.frame.size.height;
         currentHeightTextBox = oldHeightTextBox;
     }else{
-//        [twChat scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:bubbleData.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-//         twChat.contentInset = contentInset;
-//        [twChat setNeedsDisplay];
-        //[twChat reloadData];
-        NSLog(@"Do nothing");
     }
     
     firstLoad = NO;
@@ -110,11 +109,9 @@ static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
     // Dispose of any resources that can be recreated.
 }
 -(NSInteger) tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section{
-    NSLog(@"num row: %ld",bubbleData.count);
     return bubbleData.count;
 }
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"Row index: %ld",indexPath.row);
     float minHeight = avatar_size+text_size+2*margin_offset;
     BubbleMessage* messageData = [bubbleData objectAtIndex:indexPath.row];
     
@@ -606,10 +603,10 @@ static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     BubbleMessage* bubbleMessage = [bubbleData objectAtIndex:indexPath.row];
+    if (bubbleMessage.size.height==0) {
+        return 1;
+    }
     return bubbleMessage.size.height;
-}
--(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 0;
 }
 /*
 #pragma mark - Navigation
@@ -747,15 +744,17 @@ static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
                 }
             }
             //insert
-            [twChat beginUpdates];
-            if (oldSizeArr>0 && isAfterRefresh) {
-                [twChat deleteRowsAtIndexPaths:arrIndexDel withRowAnimation:UITableViewRowAnimationNone];
-            }
-            [twChat insertRowsAtIndexPaths:arrayOfIndexPath withRowAnimation:UITableViewRowAnimationNone];
-            [twChat endUpdates];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [twChat reloadData];
-            });            if(isFirstRequest || isAfterRefresh){
+            [twChat reloadData];
+//            [twChat beginUpdates];
+//            if (oldSizeArr>0 && isAfterRefresh) {
+//                [twChat deleteRowsAtIndexPaths:arrIndexDel withRowAnimation:UITableViewRowAnimationNone];
+//            }
+//            [twChat insertRowsAtIndexPaths:arrayOfIndexPath withRowAnimation:UITableViewRowAnimationNone];
+//            [twChat endUpdates];
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                [twChat reloadData];
+//            });
+            if(isFirstRequest || isAfterRefresh){
                 NSLog(@"First Request or refresh");
                 [twChat scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:bubbleData.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
                 [self performSelector:@selector(scrollToBottom) withObject:nil afterDelay:0.01];
@@ -817,8 +816,8 @@ static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
     [imageViewer showFromViewController:self transition:JTSImageViewControllerTransition_FromOffscreen];
     btn.tag = 5;
 }
-- (void)didShowKeyboard:(NSNotification*)notification
-{
+- (void)didShowKeyboard:(NSNotification*)notification{
+    
     NSDictionary* keyboardInfo = [notification userInfo];
     NSValue* keyboardFrameBegin = [keyboardInfo valueForKey:UIKeyboardFrameEndUserInfoKey];
     CGRect keyboardFrameBeginRect = [keyboardFrameBegin CGRectValue];

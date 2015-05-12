@@ -50,11 +50,9 @@ static int text_height = 19;
     // Dispose of any resources that can be recreated.
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    NSLog(@"cell count %lu",(unsigned long)[cellData count]);
     return [cellData count];
 }
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"Index: %ld",(long)indexPath.row);
     static NSString *alertCellIdentifier = @"AlertCell";
     UITableViewCell *cell = [self.twListLocation dequeueReusableCellWithIdentifier:alertCellIdentifier];
     PositionCellData* data = [cellData objectAtIndex:indexPath.row];
@@ -84,8 +82,6 @@ static int text_height = 19;
         rectHeader.origin.x = offset_margin;
         rectHeader.origin.y = rectDate.origin.y+rectDate.size.height+offset_margin/2;
 
-        int lineHeader = rectHeader.size.height/[UIFont systemFontOfSize:16].pointSize;
-        NSLog(@"lines: %d",lineHeader);
         UILabel* lbHeader = [[UILabel alloc] initWithFrame:rectHeader];
         lbHeader.text = data.header;
         lbHeader.font = [UIFont systemFontOfSize:16];
@@ -159,7 +155,9 @@ static int text_height = 19;
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     PositionCellData* data = [cellData objectAtIndex:indexPath.row];
-    NSLog(@"Index: %ld ,String length: %ld, Height: %ld",indexPath.row,data.message.length,data.height);
+    if (data.height==0) {
+        return 1;
+    }
     return data.height;
 }
 
@@ -188,7 +186,6 @@ static int text_height = 19;
     NSString* url = [NSString stringWithFormat:@"%@%@/%@/%@",baseURL,pathTradeAlert,user.userId,token];
     NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:url]];
     request.HTTPMethod=@"GET";
-    NSLog(@"%@",url);
     NSURLConnection* conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
     conn=nil;
 }
@@ -224,10 +221,10 @@ static int text_height = 19;
             NSIndexPath* index = [NSIndexPath indexPathForRow:cellData.count-1 inSection:0];
             [arrayOfIndexPath addObject:index];
         }
-        [twListLocation beginUpdates];
-        [twListLocation insertRowsAtIndexPaths:arrayOfIndexPath withRowAnimation:UITableViewRowAnimationAutomatic];
-        [twListLocation endUpdates];
-        
+//        [twListLocation beginUpdates];
+//        [twListLocation insertRowsAtIndexPaths:arrayOfIndexPath withRowAnimation:UITableViewRowAnimationAutomatic];
+//        [twListLocation endUpdates];
+        [twListLocation reloadData];
         //stop refresh
         if (isRefreshing) {
             [self stopLoadMore:nil];

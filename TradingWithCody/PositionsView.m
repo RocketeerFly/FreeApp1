@@ -52,7 +52,6 @@ static int text_height = 19;
     // Dispose of any resources that can be recreated.
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    NSLog(@"%lu",(unsigned long)[cellData count]);
     return [cellData count];
 }
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -157,6 +156,9 @@ static int text_height = 19;
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     PositionCellData* data = [cellData objectAtIndex:indexPath.row];
+    if (data.height==0) {
+        return 1;
+    }
     return data.height;
 }
 /*
@@ -184,7 +186,6 @@ static int text_height = 19;
     NSString* url = [NSString stringWithFormat:@"%@%@/%@/%@",baseURL,pathLastPosition,user.userId,token];
     NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:url]];
     request.HTTPMethod=@"GET";
-    NSLog(@"%@",url);
     NSURLConnection* conn = [[NSURLConnection alloc] initWithRequest:request delegate:self];
     conn=nil;
 }
@@ -220,10 +221,10 @@ static int text_height = 19;
             NSIndexPath* index = [NSIndexPath indexPathForRow:cellData.count-1 inSection:0];
             [arrayOfIndexPath addObject:index];
         }
-        [twListLocation beginUpdates];
-        [twListLocation insertRowsAtIndexPaths:arrayOfIndexPath withRowAnimation:UITableViewRowAnimationAutomatic];
-        [twListLocation endUpdates];
-        
+//        [twListLocation beginUpdates];
+//        [twListLocation insertRowsAtIndexPaths:arrayOfIndexPath withRowAnimation:UITableViewRowAnimationAutomatic];
+//        [twListLocation endUpdates];
+        [twListLocation reloadData];
         //stop refresh
         if (isRefreshing) {
             [self stopLoadMore:nil];
