@@ -91,8 +91,8 @@ static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
         if (currentHeightTextBox==0) {
             twChatBox.frame = CGRectMake(left  , 5, right-left, tv_chat_height);
         }
-        twChatBox.layer.borderWidth = 1;
-        twChatBox.layer.borderColor = [UIColor redColor].CGColor;
+//        twChatBox.layer.borderWidth = 1;
+//        twChatBox.layer.borderColor = [UIColor redColor].CGColor;
         twChatBox.contentSize = twChatBox.frame.size;
         oldHeightTextBox = chatView.frame.size.height;
         currentHeightTextBox = oldHeightTextBox;
