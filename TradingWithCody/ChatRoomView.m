@@ -832,6 +832,11 @@ static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
     btn.tag = 5;
 }
 - (void)didShowKeyboard:(NSNotification*)notification{
+    bool isScrollBottom = NO;
+    if (twChat.contentSize.height <= twChat.contentOffset.y + twChat.frame.size.height){
+        NSLog(@"bottom");
+        isScrollBottom = YES;
+    }
     
     NSDictionary* keyboardInfo = [notification userInfo];
     NSValue* keyboardFrameBegin = [keyboardInfo valueForKey:UIKeyboardFrameEndUserInfoKey];
@@ -850,10 +855,19 @@ static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
     
     [UIView beginAnimations:nil context:nil];
     [UIView setAnimationDuration:0.01f];
+    if (isScrollBottom) {
+        [UIView setAnimationDelegate:self];
+        [UIView setAnimationDidStopSelector:@selector(checkIfScrolledBottom)];
+    }
+    
     twChat.frame = newFrame;
     chatView.frame  =rectChatBox;
     //self.view.frame = CGRectMake(self.view.frame.origin.x, self.view.frame.origin.y-distance, self.view.frame.size.width, self.view.frame.size.height);
     [UIView commitAnimations];
+}
+-(void)checkIfScrolledBottom{
+    //check uitableview scrolled at bottom
+    [twChat scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:bubbleData.count-1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
 }
 -(IBAction)handleTap:(id)sender{
     NSLog(@"TAP");
