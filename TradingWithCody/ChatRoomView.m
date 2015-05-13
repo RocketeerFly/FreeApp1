@@ -49,7 +49,7 @@ static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
     [twChat addSubview:refreshControl];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    currentSize = 0;
+    currentSize = 400;
     numLineTextChatOld = 1;
     currentHeightTextBox = 0;
     responseData = [[NSMutableData alloc] init];
@@ -451,8 +451,6 @@ static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
                         messageData.isShowImage = NO;
                         messageData.youtubeVideoId = videoId;
                         picture.titleLabel.tag = indexPath.row;
-                        picture.layer.borderWidth = 3;
-                        picture.layer.borderColor = [UIColor redColor].CGColor;
                         //update bubble
                         minHeight+=rectImage.size.height;
                         NSLog(@"Image youtube: %f",rectImage.size.height);
@@ -697,12 +695,12 @@ static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
         
                 [messageData setName:[dict valueForKey:@"Username"]];
                 [messageData setMessage:[dict valueForKey:@"Scuttle"]];
-//                if(i==7){
-//                    [messageData setMessage:@"Chek my video https://www.youtube.com/watch?v=4NW9-yQcb70 hope u like it :D"];
-//                }
-//                if (messageData.type == BubbleMessageTypeMine) {
-//                    messageData.message = [NSString stringWithFormat:@"%@ sdfasdfsdf $sdfasd sdaf sdaf asdfds sadf asdf asdf as https://www.youtube.com/watch?v=4NW9-yQcb70 sdf $safsd fsadf sdf sdf $sdf",messageData.message];
-//                }
+                if(i==7){
+                    [messageData setMessage:@"Chek my video https://www.youtube.com/watch?v=4NW9-yQcb70 hope u like it :D"];
+                }
+                if (messageData.type == BubbleMessageTypeMine) {
+                    messageData.message = [NSString stringWithFormat:@"%@ sdfasdfsdf $sdfasd sdaf sdaf asdfds sadf asdf asdf as https://www.youtube.com/watch?v=4NW9-yQcb70 sdf $safsd fsadf sdf sdf $sdf",messageData.message];
+                }
                 long timeStamp = [[[dict valueForKey:@"Submitted"] valueForKey:@"$date"] longLongValue];
                 [messageData setTimeStamp:timeStamp];
                 timeStamp=timeStamp/1000;
