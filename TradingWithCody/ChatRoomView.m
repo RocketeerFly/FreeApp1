@@ -49,7 +49,7 @@ static NSString* idCellSomeoneReuse = @"bubbleMessageCellSomeone";
     [twChat addSubview:refreshControl];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    currentSize = 400;
+    currentSize = 0;
     numLineTextChatOld = 1;
     currentHeightTextBox = 0;
     responseData = [[NSMutableData alloc] init];
